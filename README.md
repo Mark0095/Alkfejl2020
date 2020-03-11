@@ -5,7 +5,7 @@ E-Napló
 Első mérföldkő:
 Projektötlet:
 
-Általános és középiskolás diákoknak és tanároknak elektronikus napló.
+Általános, középiskolás diákoknak és tanároknak elektronikus napló.
 
 Feladat funkcionális követelmények:
 
