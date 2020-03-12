@@ -3,11 +3,11 @@ Alkalmazások fejlesztése Beadandó
 E-Napló
 
 Első mérföldkő:
-Projektötlet:
+Projektötlet
 
 Általános, középiskolás diákoknak és tanároknak elektronikus napló.
 
-Feladat funkcionális követelmények:
+Feladat funkcionális követelményei:
 
     Bejelentkezés, kijelentkezés.
     Jogosultságok: Rendszergazda, Tanár, Diák.
@@ -15,11 +15,11 @@ Feladat funkcionális követelmények:
     Diák lássa a saját eredményeit.
     Tanár tudjon beírni a diáknak eredményeket.
 
-Feladat nem funkcionális követelmények
+Feladat nem funkcionális követelményei:
 
     Vizuális, letisztult és gyorsan kezelhető.
 
-Szerepkörök
+Szerepkörök:
 
     Diák: Saját jegyeit és órarendjét tudja megtekinteni. Adatait módosítani.
     Tanár: Tantárgyain résztvevő diákoknak tud jegyet beírni. Adatait módosítani.
