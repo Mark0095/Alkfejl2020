@@ -1,0 +1,41 @@
+  <div class="container">
+    <h3 class="center">Az Ön tantárgyai</h3>
+    <h6 class="center">Az Ön összesített tanulmányi átlaga: {{ getTotalAverage() == 0 ? 'Számítás...' : getTotalAverage() }}</h6>
+    <br>
+    <!-- Jelezzük az adatok betöltését -->
+    <div *ngIf="!subjects" class="center">
+      <mz-spinner
+        [color]="'blue'"
+        [size]="'big'">
+      </mz-spinner>
+    </div>
+    <mz-collapsible *ngIf="subjects">
+      <mz-collapsible-item *ngFor="let subject of subjects; let i = index">
+        <mz-collapsible-item-header>
+          <i class="material-icons">{{ subject.icon }}</i>
+          <span>{{ subject.name }}</span>
+          <div class="right"><mz-badge [value]="subject.average" [caption]="'átlag'" [badgeClass]="'blue'" [new]="true"></mz-badge></div>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+          <table class="striped centered">
+            <thead>
+              <tr>
+                <th>Jegy</th>
+                <th>Oktató</th>
+                <th>Dátum</th>
+                <th>Leírás</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mark of subject.marks; let j = index">
+                <td>{{ mark.mark }} </td>
+                <td>{{ getUserName(mark.teacherUserId) }}</td>
+                <td>{{ mark.date | date:'yyyy/MM/dd' }}</td>
+                <td>{{ mark.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+  </div>

@@ -1,0 +1,110 @@
+<div class="container">
+  <h3 class="center">Osztályzatok rögzítése</h3>
+  <br>
+  <form id="add-mark-form" [formGroup]="addMarkForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 m6">
+          <h4>Csoport</h4>
+          <mz-select-container>
+            <select mz-select mz-validation required
+              id="group"
+              [label]="'Csoport'"
+              formControlName="group"
+              [errorMessageResource]="errorMessageResources.group"
+              [placeholder]="'Válasszon csoportot!'"
+              [(ngModel)]="group"
+              (change)="reloadStudents()"
+            >
+              <option *ngFor="let group of groups; let i = index" value="{{ group.id }}">{{ group.name }}</option>
+            </select>
+          </mz-select-container>
+        </div>
+
+        <div class="col s12 m6">
+          <h4>Tantárgy</h4>
+          <mz-select-container>
+            <select mz-select mz-validation required
+              id="subject"
+              [label]="'Tantárgy'"
+              formControlName="subject"
+              [errorMessageResource]="errorMessageResources.subject"
+              [placeholder]="'Válasszon tantárgyat!'"
+            >
+              <option *ngFor="let subject of subjects; let i = index" value="{{ subject.id }}">{{ subject.name }}</option>
+            </select>
+          </mz-select-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m6">
+          <h4>Leírás</h4>
+          <mz-input-container>
+            <input mz-input mz-validation required
+              id="input-description"
+              formControlName="description"
+              type="text"
+              [errorMessageResource]="errorMessageResources.description"
+              [label]="'Leírás'"
+              [placeholder]="'pl. felelés, témazáró'"
+              />
+          </mz-input-container>
+        </div>
+
+        <div class="col s12 m6">
+          <h4>Datálás</h4>
+          <mz-datepicker-container>
+            <input mz-datepicker mz-validation required
+              id="datepicker-date"
+              formControlName="date"
+              type="text"
+              [errorMessageResource]="errorMessageResources.date"
+              [options]="birthdayDatepickerOptions" 
+              [label]="'Dátum'" />
+          </mz-datepicker-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h4>Tanulók</h4>
+      <p *ngIf="!group">Még nincs kiválaszva csoport!</p>
+
+      <div class="row" formArrayName="studentsFormArray"
+        *ngFor="let studentForm of addMarkForm.get('studentsFormArray').controls; let i = index;">
+        <div [formGroupName]="i">
+          <mz-input-container class="col s6">
+            <input id="student-id-{{i}}" formControlName="studentId" type="number" hidden>
+            <input id="student-name-{{i}}" mz-input mz-validation [label]="'Név'" formControlName="studentName" type="text" [attr.disabled]="true">
+          </mz-input-container>
+          <mz-select-container class="col s6">
+            <select mz-select mz-validation
+              id="student-mark-{{i}}"
+              [label]="'Osztályzat'"
+              formControlName="mark"
+            >
+              <option selected="selected" value="-1">Tanuló kihagyása</option>
+              <option *ngFor="let markOption of markOptions; let j = index" value="{{ markOption }}">{{ markOptionsText[j] }} ({{ markOption }})</option>
+            </select>
+          </mz-select-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="center">
+      <mz-progress
+        *ngIf="this.submitted"
+        [backgroundClass]="'blue lighten-4'"
+        [progressClass]="'blue'">
+      </mz-progress>
+
+      <button mz-button class="blue" [disabled]="!addMarkForm.valid" type="submit">
+        Osztályzatok rögzítése
+      </button>
+      &#8203;
+      <button mz-button class="blue" (click)="clear()" type="button">Alaphelyzet</button>
+    </div>
+  </form>
+</div>
