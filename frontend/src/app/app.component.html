@@ -1,0 +1,99 @@
+<mz-navbar *ngIf="loggedIn()" navbarClass="indigo darken-3">
+  <!-- Mobil eszközökön megjelenő hamburgermenü -->
+  <mz-navbar-item-container class="hide-on-med-and-up">
+    <mz-navbar-item id="open-sidenav">
+      <a><i class="material-icons">menu</i></a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  
+  <mz-navbar-item-container class="hide-on-small-only">
+    <mz-navbar-item [active]="router.isActive('/profile')">
+      <a routerLink="profile"><i class="material-icons left">person</i> Profil</a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  
+  <!-- Diák menü -->
+  <mz-navbar-item-container *ngIf="isStudent()" class="hide-on-small-only">
+    <mz-navbar-item [active]="router.isActive('/student/subjects')">
+      <a routerLink="student/subjects"><i class="material-icons left">format_list_bulleted</i> Tantárgyak</a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+
+  <!-- Tanár menü -->
+  <mz-navbar-item-container *ngIf="isTeacher()" class="hide-on-small-only">
+    <mz-navbar-item [active]="router.isActive('teacher-panel')">
+      <a routerLink="teacher-panel"><i class="material-icons left">build</i> Tanári panel</a>
+    </mz-navbar-item>
+    <mz-navbar-item [active]="router.isActive('/teacher/add-marks')">
+      <a routerLink="teacher/add-marks"><i class="material-icons left">add_circle</i> Osztályzatok rögzítése</a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+
+  <!-- Admin menü -->
+  <mz-navbar-item-container *ngIf="isAdmin()" class="hide-on-small-only">
+    <mz-navbar-item [active]="router.isActive('admin-panel')">
+      <a routerLink="admin-panel"><i class="material-icons left">build</i> Admin panel</a>
+    </mz-navbar-item>
+    <mz-navbar-item [active]="router.isActive('/admin/register-user')">
+      <a routerLink="admin/register-user"><i class="material-icons left">person_add</i> Felhasználó regisztrálása</a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  
+  <!-- Kijelentkezés -->
+  <mz-navbar-item-container class="hide-on-small-only" [align]="'right'">
+    <mz-navbar-item>
+      <a><button (click)="logout()" class="btn blue darken-3 waves-effect waves-light">Kijelentkezés <i class="material-icons right">directions_walk</i></button></a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+</mz-navbar>
+
+<!-- Oldalsó navigáció -->
+<mz-sidenav *ngIf="loggedIn()" [id]="'sidenav'" [collapseButtonId]="'open-sidenav'">
+  <mz-sidenav-header>
+    <div id="sidenav-title" class="center">
+      &#8203;
+    </div>
+    <p class="center">Belépve, mint {{ getUserRealName() }}</p>
+  </mz-sidenav-header>
+
+  <mz-sidenav-divider></mz-sidenav-divider>
+
+  <mz-sidenav-link [active]="router.isActive('/profile')">
+    <a routerLink="profile"><i class="material-icons left">person</i> Profil</a>
+  </mz-sidenav-link>
+
+  <!-- Diák menü -->
+  <div *ngIf="isStudent()">
+    <mz-sidenav-link [active]="router.isActive('/student/subjects')">
+      <a routerLink="student/subjects"><i class="material-icons left">format_list_bulleted</i> Tantárgyak</a>
+    </mz-sidenav-link>
+  </div>
+
+  <!-- Tanár menü -->
+  <div *ngIf="isTeacher()">
+    <mz-sidenav-link [active]="router.isActive('/teacher-panel')">
+      <a routerLink="teacher-panel"><i class="material-icons left">build</i> Tanári panel</a>
+    </mz-sidenav-link>
+    <mz-sidenav-link [active]="router.isActive('/teacher/add-marks')">
+      <a routerLink="teacher/add-marks"><i class="material-icons left">add_circle</i> Osztályzatok rögzítése</a>
+    </mz-sidenav-link>
+  </div>
+
+  <!-- Admin menü -->
+  <div *ngIf="isAdmin()">
+    <mz-sidenav-link [active]="router.isActive('/admin-panel')">
+      <a routerLink="admin-panel"><i class="material-icons left">build</i> Admin panel</a>
+    </mz-sidenav-link>
+    <mz-sidenav-link [active]="router.isActive('/admin/register-user')">
+      <a routerLink="admin/register-user"><i class="material-icons left">person_add</i> Felhasználó regisztrálása</a>
+    </mz-sidenav-link>
+  </div>
+
+  <mz-sidenav-divider></mz-sidenav-divider>
+
+  <mz-sidenav-link class="center">
+    <button (click)="logout()" class="btn blue darken-3 waves-effect waves-light">Kijelentkezés <i class="material-icons right">directions_walk</i></button>
+  </mz-sidenav-link>
+</mz-sidenav>
+
+<router-outlet></router-outlet>
